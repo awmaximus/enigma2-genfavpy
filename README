@@ -1,0 +1,72 @@
+----------------------------------------------------------------------------------
+DESCRIÇÃO
+----------------------------------------------------------------------------------
+
+Este aplicativo gera as configurações de favoritos do Enigma2.
+
+Ele lê a base de dados de canais do enigma2 (/etc/enigma2/lamedb) e gera as
+configurações de favoritos com base em um conjunto de regras que podem ser
+facilmente personalizadas.
+
+Ele funciona tanto para quem aponta apenas para um satelite ou para vários
+satelites, de acordo com a configuração presente no aparelho (satellites.xml).
+Os favoritos são gerados para cada satelite individualmente.
+
+OBS: Este aplicativo veio para substituir o aplicativo genfav.sh
+
+----------------------------------------------------------------------------------
+COMPATIBILIDADE
+----------------------------------------------------------------------------------
+
+Este script foi testado no OpenPLI mas deve funcionar nas demais distribuições.
+
+
+----------------------------------------------------------------------------------
+MODO DE USO
+----------------------------------------------------------------------------------
+
+0) FAÇA BACKUP DA PASTA "/etc/enigma2"
+1) Copie o arquivo "genfavpy.py" para a pasta "/home/root" no enigma2 usando um
+   cliente FTP (Ex: Filezilla)
+2) Dê permissão de execução a este arquivo.
+   Acesse via Telnet ou SSH o enigma2 e execute o seguinte comando:
+   chmod 700 /home/root/genfav.sh
+3) Descompacte (WinRAR) o arquivo "genfavpy.conf.tar.gz" e copie o arquivo
+   "genfavpy.conf" para a pasta "/etc/enigma2" no enigma2 usando um cliente
+   FTP (Ex: Filezilla)
+4) Na interface do enigma2 (via controle remoto), execute um scan completo de
+   canais para cada satelite que se tenha apontamento
+5) Execute o aplicativo para que ele crie os favoritos baseados nas regras
+   contidas no arquivo "genfavpy.conf"
+   Acesse via Telnet ou SSH o enigma2 e execute o seguinte comando:
+   /home/root/genfavpy.py
+
+
+Feito os procedimento acima, em caso de mudança nas TPs, faça:
+
+0) FAÇA BACKUP DA PASTA "/etc/enigma2"
+1) Efetue, se necessário, as alterações nas configurações do satellite.xml e
+   reinicie o aparelho (vide forum).
+2) Na interface do enigma2 (via controle remoto), execute um scan completo de
+   canais para cada satelite que se tenha apontamento
+3) Execute o aplicativo para que ele crie os favoritos baseados nas regras
+   contidas no arquivo "genfavpy.conf"
+   Acesse via Telnet ou SSH o enigma e execute o seguinte comando:
+   /home/root/genfavpy.py
+
+
+----------------------------------------------------------------------------------
+AUTORIA E BUGS
+----------------------------------------------------------------------------------
+
+Nick: awmaximus
+Email: awmaximus@gmail.com
+
+
+----------------------------------------------------------------------------------
+TODO
+----------------------------------------------------------------------------------
+
+* Permitir renomear os canais
+* Executar scan de canais automaticamente
+* Converter o script em um Plugin do enigma2 com interface gráfica
