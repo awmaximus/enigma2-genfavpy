@@ -13,12 +13,13 @@ import glob
 import sqlite3
 import time
 import re
+import urllib
 from unicodedata import normalize
 from xml.dom import minidom
 
 #---------------------------------------------
-base = '/etc/enigma2/genfavpy.sqlite'
-#base = ':memory:'
+#base = '/etc/enigma2/genfavpy.sqlite'
+base = ':memory:'
 lamedb = '/etc/enigma2/lamedb'
 rules = '/etc/enigma2/genfavpy.conf'
 satellites = '/etc/tuxbox/satellites.xml'
@@ -307,6 +308,7 @@ def genfav():
     rulesall = cur.fetchall()
     cont = 1
     for rule in rulesall:
+        if rule['favname'] == 'exclude': continue
         statuspercent = int((float(cont)/float(len(rulesall))*100))
         log("\r%d%%" % statuspercent)
         cont += 1
@@ -332,7 +334,10 @@ def genfav():
         for channel in channels:
             if debug > 0: print '\t' + channel['channelname']
             #print rule['favname'] + " - " + channel['channelname'] + " (" + channel['satname'] + ")"
-            favfile.write(mkservice(channel=channel, incsat=True).encode('utf-8')+"\n")
+            if len(satcodelist()) > 1:
+                favfile.write(mkservice(channel=channel, incsat=True).encode('utf-8')+"\n")
+            else:
+                favfile.write(mkservice(channel=channel, incsat=False).encode('utf-8')+"\n")
         favfile.close()
     log('\n')
 
@@ -387,6 +392,13 @@ def genfavindex():
     radioindexfile.write('#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.favourites.radio" ORDER BY bouquet\n')
     radioindexfile.close()
 
+def reload():
+    f = urllib.urlopen("http://127.0.0.1/web/servicelistreload?mode=1")
+    s = f.read()
+    f.close()
+    f = urllib.urlopen("http://127.0.0.1/web/servicelistreload?mode=2")
+    s = f.read()
+    f.close()
 
 def main():
     log('Removing old files...\n')
@@ -406,6 +418,10 @@ def main():
     log('Generating favorites indexes...\n')   
     genfavindex()
     closedb()
+    log('Reloading...\n')
+    reload()
+    
+    
 
 
 time1 = time.time()
