@@ -1,1 +1,11 @@
 opkg install sqlite3 python-sqlite3
+
+Caso não consigam instalar pelo comando acima, baixem os pacotes do link abaixo:
+
+https://www.dropbox.com/sh/y6ks6mtu88340mf/jcQCrstqHc
+
+Agora é só instalar manualmente nesta ordem:
+
+opkg install libsqlite3-0_3.6.23.1-r4.0_mipsel.ipk
+opkg install sqlite3_3.6.23.1-r4.0_mipsel.ipk
+opkg install python-sqlite3_2.6.6-ml12.6_mipsel.ipk 
