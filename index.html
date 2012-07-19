@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Enigma2-genfavpy by awmaximus</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Enigma2-genfavpy</h1>
+        <h2></h2>
+
+        <section id="downloads">
+          <a href="https://github.com/awmaximus/enigma2-genfavpy/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/awmaximus/enigma2-genfavpy/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/awmaximus/enigma2-genfavpy" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h3>DESCRIÇÃO</h3>
+
+<p>Este aplicativo gera as configurações de favoritos do Enigma2.</p>
+
+<p>Ele lê a base de dados de canais do enigma2 (/etc/enigma2/lamedb) e gera as configurações de favoritos com base em um conjunto de regras que podem ser facilmente personalizadas.</p>
+
+<p>Ele funciona tanto para quem aponta apenas para um satelite ou para vários satelites, de acordo com a configuração presente no aparelho (satellites.xml).</p>
+
+<p>OBS: Este aplicativo veio para substituir o aplicativo genfav.sh
+<br><br></p>
+
+<h3>COMPATIBILIDADE</h3>
+
+<p>Este script foi testado no OpenPLI mas deve funcionar nas demais distribuições.
+<br><br></p>
+
+<h3>MODO DE USO</h3>
+
+<p>1) FAÇA BACKUP DA PASTA "/etc/enigma2"</p>
+
+<p>2) Copie o arquivo "genfavpy.py" para a pasta "/home/root" no enigma2 usando um cliente FTP (Ex: Filezilla)</p>
+
+<p>3) Instale os pacotes Python necessários:<br><code>opkg install sqlite3 python-sqlite3</code></p>
+
+<p>Caso não consigam instalar pelo comando acima, baixem os pacotes do link abaixo:</p>
+
+<p><a href="https://www.dropbox.com/sh/y6ks6mtu88340mf/jcQCrstqHc">https://www.dropbox.com/sh/y6ks6mtu88340mf/jcQCrstqHc</a></p>
+
+<p>Agora é só instalar manualmente nesta ordem:<br><code>opkg install libsqlite3-0_3.6.23.1-r4.0_mipsel.ipk</code><br><code>opkg install sqlite3_3.6.23.1-r4.0_mipsel.ipk</code><br><code>opkg install python-sqlite3_2.6.6-ml12.6_mipsel.ipk</code><br></p>
+
+<p>4) Dê permissão de execução a este arquivo. Acesse via Telnet ou SSH o enigma2 e execute o seguinte comando:<br><code>chmod 700 /home/root/genfavpy.py</code></p>
+
+<p>5) Descompacte (WinRAR) o arquivo "genfavpy.conf.tar.gz" e copie o arquivo "genfavpy.conf" para a pasta "/etc/enigma2" no enigma2 usando um cliente FTP (Ex: Filezilla).</p>
+
+<p>6) Na interface do enigma2 (via controle remoto), execute um scan completo de canais para cada satelite que se tenha apontamento.</p>
+
+<p>7) Execute o aplicativo para que ele crie os favoritos baseados nas regras contidas no arquivo "genfavpy.conf". Acesse via Telnet ou SSH o enigma2 e execute o seguinte comando:<br><code>/home/root/genfavpy.py</code>
+<br><br></p>
+
+<p>Feito os procedimento acima, em caso de mudança nas TPs, faça:
+<br></p>
+
+<p>1) FAÇA BACKUP DA PASTA "/etc/enigma2"</p>
+
+<p>2) Efetue, se necessário, as alterações nas configurações do satellite.xml e reinicie o aparelho (vide forum).</p>
+
+<p>3) Na interface do enigma2 (via controle remoto), execute um scan completo de canais para cada satelite que se tenha apontamento.</p>
+
+<p>4) Execute o aplicativo para que ele crie os favoritos baseados nas regras contidas no arquivo "genfavpy.conf". Acesse via Telnet ou SSH o enigma e execute o seguinte comando:<br><code>/home/root/genfavpy.py</code>
+<br><br></p>
+
+<h3>COMO PERSONALIZAR AS REGRAS</h3>
+
+<p>Vide fórum.
+<br><br></p>
+
+<h3>AUTORIA E BUGS</h3>
+
+<p>Nick: awmaximus<br>
+Email: <a href="mailto:awmaximus@gmail.com">awmaximus@gmail.com</a>
+<br><br></p>
+
+<h3>TODO</h3>
+
+<ul>
+<li>Permitir renomear os canais<br>
+</li>
+<li>Executar scan de canais automaticamente<br>
+</li>
+<li>Converter o script em um Plugin do enigma2 com interface gráfica<br>
+</li>
+</ul>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
