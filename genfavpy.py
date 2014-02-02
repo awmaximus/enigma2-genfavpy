@@ -241,10 +241,8 @@ def rulesexceptions(channellist):
             channel.replace('*','%')
             channelexceptions.append(channel)
     if len(channelexceptions)>0:
-        queryexceptions = "AND ( "
-        for exp in channelexceptions:
-            queryexceptions += " ch.channelname not like '%s' " % exp
-        queryexceptions += " ) "
+        listexceptions = "('" + "','".join(channelexceptions) + "')" 
+        queryexceptions = "AND ( ch.channelname not in %s )" % listexceptions
     return queryexceptions
 
 
@@ -285,6 +283,7 @@ def parserules():
                          %s
                          AND tp.satcode = '%s'
                        ORDER BY channelname""" % (channelname,queryexceptions,satcode)
+            print query
             cur.execute(query)
             channelscode = cur.fetchall()
             for channelcode in channelscode:
@@ -448,4 +447,8 @@ main()
 time2 = time.time()
 if debug > 0: print 'Tempo de execucao: ' + str(time2-time1)
 print 'Tempo de execucao: ' + str(time2-time1) 
+
+
+
+
 
