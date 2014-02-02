@@ -2,6 +2,7 @@
 
 '''
 Created on 13/07/2012
+Modified on 02/02/2014
 
 @author: awmaximus
 @version: 1.0 
@@ -231,6 +232,22 @@ def lamedb2sqllite():
 
 
 
+def rulesexceptions(channellist):
+    channelexceptions = []
+    queryexceptions = ""
+    for channel in channellist:
+        if channel.startswith('!'):
+            channel = channel[1::]
+            channel.replace('*','%')
+            channelexceptions.append(channel)
+    if len(channelexceptions)>0:
+        queryexceptions = "AND ( "
+        for exp in channelexceptions:
+            queryexceptions += " ch.channelname not like '%s' " % exp
+        queryexceptions += " ) "
+    return queryexceptions
+
+
 def parserules():
     cont = 1
     contlines = 0
@@ -247,6 +264,7 @@ def parserules():
         favname = favname.strip()
         channellist = channellist.split(',')
         channellist = striplist(channellist)
+        queryexceptions = rulesexceptions(channellist)
         for channel in channellist:
             channelname = ''
             satcode = ''
@@ -257,15 +275,16 @@ def parserules():
             else:
                 satcode = channel.split(':')[0]
                 channelname = channel.split(':')[1]
-            
+           
             channelname = channelname.replace('*','%')
             query = """SELECT DISTINCT ch.channelid, ch.channelname, tp.satcode
                            FROM channels ch
                                 INNER JOIN transponders tp
                                     ON ch.tpcode = tp.tpcode
                        WHERE ch.channelname like '%s'
+                         %s
                          AND tp.satcode = '%s'
-                       ORDER BY channelname""" % (channelname,satcode)
+                       ORDER BY channelname""" % (channelname,queryexceptions,satcode)
             cur.execute(query)
             channelscode = cur.fetchall()
             for channelcode in channelscode:
@@ -429,9 +448,4 @@ main()
 time2 = time.time()
 if debug > 0: print 'Tempo de execucao: ' + str(time2-time1)
 print 'Tempo de execucao: ' + str(time2-time1) 
-
-
-
-
-
 
