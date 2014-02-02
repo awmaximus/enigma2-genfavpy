@@ -5,7 +5,7 @@ Created on 13/07/2012
 Modified on 02/02/2014
 
 @author: awmaximus
-@version: 1.0 
+@version: 1.1
 '''
 
 import os
