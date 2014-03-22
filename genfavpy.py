@@ -283,7 +283,6 @@ def parserules():
                          %s
                          AND tp.satcode = '%s'
                        ORDER BY channelname""" % (channelname,queryexceptions,satcode)
-            print query
             cur.execute(query)
             channelscode = cur.fetchall()
             for channelcode in channelscode:
